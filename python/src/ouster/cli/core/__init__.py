@@ -8,7 +8,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 import platform
 import os
-from importlib_metadata import distributions, version
+from importlib.metadata import distributions, version
 from more_itertools import always_iterable
 import inspect
 
@@ -128,6 +128,10 @@ def _top_level_inferred(dist):
         for f in always_iterable(dist.files)
     }
     return list(filter(lambda name: name is not None and '.' not in name, opt_names))
+
+
+if sys.version_info >= (3, 10):
+    from importlib.metadata import packages_distributions
 
 
 def find_plugins(show_traceback: bool = False):
